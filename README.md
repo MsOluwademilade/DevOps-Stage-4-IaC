@@ -115,7 +115,7 @@ cd DevOps-Stage-4-IaC
 
 ### 6. Cleanup Resources (when finished)
 
-To avoid incurring costs, remember to destroy resources when done:
+To avoid incurring costs, remember to **destroy resources** when done:
 
 ```bash
 cd terraform
