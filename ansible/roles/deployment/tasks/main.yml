@@ -1,0 +1,10 @@
+- name: Clone application repository
+  git:
+    repo: https://github.com/MsOluwademilade/DevOps-Stage-4
+    dest: /opt/todo-app
+    version: main
+
+- name: Deploy application with Docker Compose
+  command: docker-compose up -d
+  args:
+    chdir: /opt/todo-app
