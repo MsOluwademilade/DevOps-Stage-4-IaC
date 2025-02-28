@@ -1,8 +1,37 @@
+- name: Create the app directory if it doesn't exist
+  file:
+    path: /opt/todo-app
+    state: directory
+    mode: '0755'
+
 - name: Clone application repository
   git:
     repo: https://github.com/MsOluwademilade/DevOps-Stage-4
     dest: /opt/todo-app
     version: main
+    force: yes
+
+- name: Create .env file for environment variables
+  copy:
+    dest: /opt/todo-app/.env
+    content: |
+      DOMAIN=msoluwademilade.top
+      EMAIL=oyekanmidemilade2@gmail.com
+
+- name: Create traefik directory for certificates
+  file:
+    path: /opt/todo-app/traefik
+    state: directory
+    mode: '0755'
+
+- name: Create Traefik dynamic configuration
+  copy:
+    dest: /opt/todo-app/traefik/dynamic_conf.toml
+    content: |
+      [http.middlewares]
+        [http.middlewares.redirect-to-https.redirectScheme]
+          scheme = "https"
+          permanent = true
 
 - name: Deploy application with Docker Compose
   command: docker-compose up -d
